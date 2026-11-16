@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVOLUTA | Tu Sistema de Crecimiento Personal</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        evoluta: {
+                            abyss: '#060D17',
+                            deep: '#0B1626',
+                            slate: '#101F33',
+                            card: '#13243B',
+                            cyan: '#00D2FF',
+                            cobalt: '#0066FF',
+                            amber: '#F5A623',
+                            muted: '#94A3B8',
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Montserrat', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'cyan-glow': '0 0 25px rgba(0, 210, 255, 0.35)',
+                        'cyan-glow-lg': '0 0 40px rgba(0, 210, 255, 0.5)',
+                        'amber-glow': '0 0 25px rgba(245, 166, 35, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts: Montserrat & Inter (Según Guía de Identidad de Marca) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #060D17;
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Glassmorphism tecnológico oscuro */
+        .tech-glass {
+            background: rgba(16, 31, 51, 0.72);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 210, 255, 0.18);
+        }
+
+        .tech-glass-hover {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tech-glass-hover:hover {
+            border-color: rgba(0, 210, 255, 0.55);
+            box-shadow: 0 10px 35px -10px rgba(0, 210, 255, 0.25);
+            transform: translateY(-4px);
+        }
+
+        /* Grid de fondo sutil estilo sistema/ingeniería */
+        .bg-tech-grid {
+            background-size: 48px 48px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 210, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 210, 255, 0.04) 1px, transparent 1px);
+        }
+
+        /* Resplandor atmosférico Hero (Cian frío + Ámbar cálido horizonte) */
+        .hero-atmosphere {
+            background: 
+                radial-gradient(circle at 18% 30%, rgba(0, 210, 255, 0.16) 0%, transparent 45%),
+                radial-gradient(circle at 82% 28%, rgba(245, 166, 35, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 50% 85%, rgba(0, 102, 255, 0.14) 0%, transparent 55%),
+                linear-gradient(180deg, #060D17 0%, #0B1626 65%, #060D17 100%);
+        }
+
+        /* Gradiente de texto cian */
+        .text-gradient-cyan {
+            background: linear-gradient(135deg, #FFFFFF 0%, #00D2FF 55%, #0066FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Animación de entrada suave */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.7s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #060D17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E3A5F;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00D2FF;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-evoluta-cyan selection:text-evoluta-abyss">
+
+    <!-- Definiciones SVG Globales (Gradientes y Filtros de Brillo) -->
+    <svg width="0" height="0" class="hidden">
+        <defs>
+            <linearGradient id="evolutaCyanGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#0055FF" />
+                <stop offset="50%" stop-color="#00D2FF" />
+                <stop offset="100%" stop-color="#9BEFFF" />
+            </linearGradient>
+            <linearGradient id="evolutaSilverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF" />
+                <stop offset="60%" stop-color="#CBD5E1" />
+                <stop offset="100%" stop-color="#64748B" />
+            </linearGradient>
+            <filter id="cyanGlowFilter" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="3" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- =================================================================
+         1. NAVBAR FIJO (GLASSMORPHISM OSCURO)
+    ================================================================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 tech-glass border-b border-evoluta-cyan/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logotipo Oficial EVOLUTA SVG -->
+            <a href="#" class="flex items-center gap-3 group focus:outline-none" aria-label="EVOLUTA Inicio">
+                <!-- Isotipo 'e' dinámica con flecha ascendente -->
+                <svg class="w-10 h-10 transition-transform duration-300 group-hover:scale-105" viewBox="0 0 64 64" fill="none">
+                    <!-- Órbita inferior plateada/azul -->
+                    <path d="M44 43C39.5 49.5 31.5 52.5 23.5 50.5C14.5 48.2 9.5 39 11.8 30C13.5 23.2 19 18.2 25.5 16.8" stroke="url(#evolutaSilverGrad)" stroke-width="5.5" stroke-linecap="round"/>
+                    <!-- Trazo dinámico principal con flecha ascendente en gradiente cian -->
+                    <path d="M13 35.5C21 35.5 33 32.5 46 17" stroke="url(#evolutaCyanGrad)" stroke-width="6" stroke-linecap="round" filter="url(#cyanGlowFilter)"/>
+                    <!-- Punta de flecha ascendente -->
+                    <path d="M36 15.5H48.5V28" stroke="url(#evolutaCyanGrad)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#cyanGlowFilter)"/>
+                    <!-- Punto de foco/cabeza superior -->
+                    <circle cx="31" cy="14" r="4" fill="#FFFFFF" filter="url(#cyanGlowFilter)"/>
+                </svg>
+
+                <!-- Wordmark E V O L U T A estilizado -->
+                <div class="flex flex-col">
+                    <div class="flex items-center gap-1.5 sm:gap-2 font-display font-bold text-lg sm:text-xl tracking-[0.22em] text-white">
+                        <!-- E de tres barras horizontales -->
+                        <span>EVOL<strong class="text-evoluta-cyan">Ü</strong>TA</span>
+                        <!-- A con vértice en gradiente cian -->
+                        <svg class="w-4 h-4 inline-block -ml-1" viewBox="0 0 22 20" fill="none">
+                            <path d="M2 18L11 2L20 18" stroke="url(#evolutaCyanGrad)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <span class="text-[9px] sm:text-[10px] font-display tracking-[0.2em] text-evoluta-muted uppercase mt-0.5">
+                        Tu sistema de crecimiento personal
+                    </span>
+                </div>
+            </a>
+
+            <!-- Enlaces Desktop -->
+            <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium text-evoluta-muted">
+                <a href="#el-bloqueo" class="hover:text-evoluta-cyan transition-colors">El Bloqueo</a>
+                <a href="#diagnostico-ibs" class="hover:text-evoluta-cyan transition-colors">Diagnóstico IBS</a>
+                <a href="#el-sistema" class="hover:text-evoluta-cyan transition-colors">El Sistema</a>
+                <a href="#ecosistema" class="hover:text-evoluta-cyan transition-colors">Ecosistema</a>
+                <a href="#manifiesto" class="hover:text-evoluta-cyan transition-colors">Manifiesto</a>
+            </nav>
+
+            <!-- CTA Iluminado en Cian -->
+            <div class="hidden sm:flex items-center">
+                <a href="#diagnostico-ibs" class="bg-gradient-to-r from-evoluta-cobalt to-evoluta-cyan text-evoluta-abyss font-display font-bold text-xs sm:text-sm px-5 py-2.5 rounded-full shadow-cyan-glow hover:shadow-cyan-glow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                    <span>Descubrir mi Bloqueo</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+            </div>
+
+            <!-- Botón Menú Móvil -->
+            <button id="mobileMenuBtn" class="lg:hidden text-white hover:text-evoluta-cyan text-2xl p-2 focus:outline-none" aria-label="Abrir menú">
+                <i class="fa-solid fa-bars" id="mobileMenuIcon"></i>
+            </button>
+        </div>
+
+        <!-- Menú Móvil Desplegable -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-evoluta-deep/95 backdrop-blur-xl border-b border-evoluta-cyan/20 px-6 py-6 space-y-4">
+            <a href="#el-bloqueo" class="mobile-link block text-white hover:text-evoluta-cyan font-medium py-2 border-b border-white/5">El Bloqueo</a>
+            <a href="#diagnostico-ibs" class="mobile-link block text-white hover:text-evoluta-cyan font-medium py-2 border-b border-white/5">Diagnóstico IBS</a>
+            <a href="#el-sistema" class="mobile-link block text-white hover:text-evoluta-cyan font-medium py-2 border-b border-white/5">El Sistema (RED · IMÁN · IRIS)</a>
+            <a href="#ecosistema" class="mobile-link block text-white hover:text-evoluta-cyan font-medium py-2 border-b border-white/5">Ecosistema</a>
+            <a href="#manifiesto" class="mobile-link block text-white hover:text-evoluta-cyan font-medium py-2">Manifiesto</a>
+            <a href="#diagnostico-ibs" class="mobile-link block w-full text-center bg-gradient-to-r from-evoluta-cobalt to-evoluta-cyan text-evoluta-abyss font-display font-bold py-3.5 rounded-full shadow-cyan-glow mt-4">
+                Descubrir mi Bloqueo
+            </a>
+        </div>
+    </header>
+
+    <!-- =================================================================
+         2. HERO SECTION CINEMATOGRÁFICO (FASE 1: DESCUBRIMIENTO)
+    ================================================================== -->
+    <main class="pt-20">
+        <section class="relative min-h-[92vh] flex flex-col justify-between hero-atmosphere bg-tech-grid overflow-hidden">
+            
+            <!-- Elementos decorativos de luz y horizonte -->
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="absolute top-28 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-evoluta-cyan/10 rounded-full blur-[120px]"></div>
+                <div class="absolute top-24 right-[10%] w-64 h-64 bg-evoluta-amber/15 rounded-full blur-[100px]"></div>
+            </div>
+
+            <!-- Contenido Central del Hero -->
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 sm:pt-24 sm:pb-16 text-center relative z-10 my-auto space-y-8">
+                
+                <!-- Etiqueta Superior -->
+                <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full tech-glass border border-evoluta-cyan/35 text-evoluta-cyan font-display text-xs font-semibold tracking-[0.2em] uppercase">
+                    <span class="w-2 h-2 rounded-full bg-evoluta-cyan animate-ping"></span>
+                    Tu Sistema de Crecimiento Personal
+                </div>
+
+                <!-- Titular Principal -->
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight leading-[1.1] uppercase">
+                    <span class="block text-white">No necesitas más motivación.</span>
+                    <span class="block mt-2">
+                        Necesitas un <span class="text-gradient-cyan">sistema.</span>
+                    </span>
+                </h1>
+
+                <!-- Subtitular Narrativo (Escena 1 & 2) -->
+                <p class="text-lg sm:text-2xl text-evoluta-muted max-w-3xl mx-auto font-light leading-relaxed">
+                    Sueñas. Te esfuerzas. Pero sigues estancado. 
+                    <span class="text-evoluta-amber font-medium block sm:inline mt-1 sm:mt-0">
+                        Tus objetivos son reales; el problema es el cómo.
+                    </span>
+                </p>
+
+                <!-- Caja de Enfoque Sistémico -->
+                <div class="max-w-2xl mx-auto p-5 rounded-2xl tech-glass border border-white/10 text-sm sm:text-base text-slate-300">
+                    <p>
+                        Convertimos tus objetivos en un <strong class="text-white">proceso estructurado</strong> para avanzar. 
+                        Sin improvisar. Sin depender de rachas emocionales.
+                    </p>
+                </div>
+
+                <!-- Dos CTAs Principales -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+                    <a href="#diagnostico-ibs" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-evoluta-cobalt to-evoluta-cyan text-evoluta-abyss font-display font-bold text-sm sm:text-base tracking-wide shadow-cyan-glow hover:shadow-cyan-glow-lg transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-crosshairs"></i>
+                        <span>Iniciar Diagnóstico IBS Gratuito</span>
+                    </a>
+                    <a href="#el-sistema" class="w-full sm:w-auto px-8 py-4 rounded-full tech-glass border border-evoluta-cyan/40 hover:border-evoluta-cyan text-white font-display font-semibold text-sm sm:text-base tracking-wide transition-all flex items-center justify-center gap-2 hover:bg-evoluta-cyan/10">
+                        <span>Explorar el Método</span>
+                        <i class="fa-solid fa-chevron-down text-xs text-evoluta-cyan"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Barra Inferior de 4 Pilares (Inspirada en el pie de las láminas creativas) -->
+            <div class="relative z-10 border-t border-evoluta-cyan/20 bg-evoluta-abyss/85 backdrop-blur-md">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        
+                        <!-- Pilar 1 -->
+                        <div class="flex items-center gap-4 p-2 rounded-xl hover:bg-white/5 transition-colors">
+                            <div class="w-12 h-12 rounded-xl bg-evoluta-cyan/10 border border-evoluta-cyan/30 flex items-center justify-center text-evoluta-cyan text-xl flex-shrink-0">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </div>
+                            <div>
+                                <h2 class="font-display font-bold text-xs sm:text-sm tracking-wider uppercase text-white">Objetivos Claros</h2>
+                                <p class="text-xs text-evoluta-muted mt-0.5">Con dirección definida.</p>
+                            </div>
+                        </div>
+
+                        <!-- Pilar 2 -->
+                        <div class="flex items-center gap-4 p-2 rounded-xl hover:bg-white/5 transition-colors">
+                            <div class="w-12 h-12 rounded-xl bg-evoluta-cyan/10 border border-evoluta-cyan/30 flex items-center justify-center text-evoluta-cyan text-xl flex-shrink-0">
+                                <i class="fa-solid fa-gears"></i>
+                            </div>
+                            <div>
+                                <h2 class="font-display font-bold text-xs sm:text-sm tracking-wider uppercase text-white">Proceso Estructurado</h2>
+                                <p class="text-xs text-evoluta-muted mt-0.5">Con método probado.</p>
+                            </div>
+                        </div>
+
+                        <!-- Pilar 3 -->
+                        <div class="flex items-center gap-4 p-2 rounded-xl hover:bg-white/5 transition-colors">
+                            <div class="w-12 h-12 rounded-xl bg-evoluta-cyan/10 border border-evoluta-cyan/30 flex items-center justify-center text-evoluta-cyan text-xl flex-shrink-0">
+                                <i class="fa-solid fa-chart-column"></i>
+                            </div>
+                            <div>
+                                <h2 class="font-display font-bold text-xs sm:text-sm tracking-wider uppercase text-white">Seguimiento Real</h2>
+                                <p class="text-xs text-evoluta-muted mt-0.5">Con datos observables.</p>
+                            </div>
+                        </div>
+
+                        <!-- Pilar 4 -->
+                        <div class="flex items-center gap-4 p-2 rounded-xl hover:bg-white/5 transition-colors">
+                            <div class="w-12 h-12 rounded-xl bg-evoluta-cyan/10 border border-evoluta-cyan/30 flex items-center justify-center text-evoluta-cyan text-xl flex-shrink-0">
+                                <i class="fa-solid fa-rocket"></i>
+                            </div>
+                            <div>
+                                <h2 class="font-display font-bold text-xs sm:text-sm tracking-wider uppercase text-white">Resultados Tangibles</h2>
+                                <p class="text-xs text-evoluta-muted mt-0.5">Con tu mejor versión.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             3. EL CAMBIO DE PARADIGMA & LAS 5 ÁREAS DE VIDA (FASE 2)
+        ================================================================== -->
+        <section id="el-bloqueo" class="py-24 px-4 sm:px-6 lg:px-8 relative border-t border-white/5 bg-evoluta-deep/50">
+            <div class="max-w-7xl mx-auto space-y-20">
+                
+                <!-- Bloque Narrativo: La Revelación -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center reveal">
+                    <div class="lg:col-span-6 space-y-6">
+                        <span class="text-evoluta-amber font-display font-bold text-xs tracking-[0.25em] uppercase">
+                            Fase 02 · La Revelación
+                        </span>
+                        <h2 class="text-3xl sm:text-5xl font-display font-bold leading-tight">
+                            No estás roto. <br>
+                            <span class="text-evoluta-cyan">Tu sistema tiene fricción.</span>
+                        </h2>
+                        <p class="text-evoluta-muted text-base sm:text-lg leading-relaxed">
+                            "Sabes que puedes conseguir más. Tienes objetivos, tienes ganas... pero ¿por qué sigues sin avanzar como quieres?"
+                        </p>
+                        <div class="p-6 rounded-2xl tech-glass border-l-4 border-l-evoluta-amber space-y-2">
+                            <p class="font-display font-bold text-white text-sm uppercase tracking-wider">
+                                Nuevo Paradigma EVOLUTA
+                            </p>
+                            <p class="text-sm text-slate-300 leading-relaxed">
+                                La procrastinación no es pereza ni falta de carácter. Es una <strong class="text-evoluta-amber">señal </strong> de un bloqueo no resuelto entre tu identidad, tus decisiones, tu plan o tu capacidad de adaptación.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Comparativa Visual: Antes vs Después -->
+                    <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- ANTES -->
+                        <div class="p-6 sm:p-8 rounded-3xl bg-evoluta-abyss/90 border border-white/10 space-y-5">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-display font-bold uppercase tracking-widest text-slate-400">Antes · Improvisación</span>
+                                <i class="fa-solid fa-triangle-exclamation text-evoluta-amber/80"></i>
+                            </div>
+                            <ul class="space-y-3.5 text-sm text-slate-400">
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-xmark text-red-400/80"></i> Confusión y dispersión</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-xmark text-red-400/80"></i> Parálisis por indecisión</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-xmark text-red-400/80"></i> Procrastinación recurrente</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-xmark text-red-400/80"></i> Dependencia de motivación</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-xmark text-red-400/80"></i> Errores interpretados como fracaso</li>
+                            </ul>
+                        </div>
+
+                        <!-- DESPUÉS -->
+                        <div class="p-6 sm:p-8 rounded-3xl tech-glass border border-evoluta-cyan/50 shadow-cyan-glow space-y-5 relative overflow-hidden">
+                            <div class="absolute -top-10 -right-10 w-32 h-32 bg-evoluta-cyan/20 rounded-full blur-2xl"></div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-display font-bold uppercase tracking-widest text-evoluta-cyan">Después · Sistema EVOLUTA</span>
+                                <i class="fa-solid fa-bolt text-evoluta-cyan"></i>
+                            </div>
+                            <ul class="space-y-3.5 text-sm text-white font-medium">
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-evoluta-cyan"></i> Claridad absoluta de Raíz</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-evoluta-cyan"></i> Decisión consciente y firme</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-evoluta-cyan"></i> Acción estructurada paso a paso</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-evoluta-cyan"></i> Medición objetiva con IRIS</li>
+                                <li class="flex items-center gap-3"><i class="fa-solid fa-check text-evoluta-cyan"></i> Neuroajuste y evolución continua</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Las 5 Áreas que Realmente Importan (Escena 4 de las imágenes) -->
+                <div class="space-y-10 reveal">
+                    <div class="text-center max-w-2xl mx-auto space-y-3">
+                        <span class="text-xs font-display font-bold uppercase tracking-[0.25em] text-evoluta-cyan">
+                            Equilibrio Integral
+                        </span>
+                        <h3 class="text-2xl sm:text-4xl font-display font-bold text-white uppercase">
+                            Cada área de tu vida importa
+                        </h3>
+                        <p class="text-evoluta-muted text-sm sm:text-base">
+                            Un método integral para que avances sin sacrificar lo esencial. Selecciona un área para ver cómo actúa el sistema:
+                        </p>
+                    </div>
+
+                    <!-- Grid Interactivo de 5 Áreas -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4" id="lifeAreasGrid">
+                        <button onclick="selectLifeArea('salud')" data-area="salud" class="area-btn active-area p-5 rounded-2xl tech-glass border border-evoluta-cyan shadow-cyan-glow text-center space-y-3 transition-all cursor-pointer">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-evoluta-cyan/20 text-evoluta-cyan flex items-center justify-center text-xl">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                            <span class="block font-display font-bold text-xs tracking-widest uppercase text-white">Salud</span>
+                        </button>
+
+                        <button onclick="selectLifeArea('mente')" data-area="mente" class="area-btn p-5 rounded-2xl tech-glass border border-white/10 hover:border-evoluta-cyan/50 text-center space-y-3 transition-all cursor-pointer">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-white/5 text-evoluta-cyan flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <span class="block font-display font-bold text-xs tracking-widest uppercase text-white">Mente</span>
+                        </button>
+
+                        <button onclick="selectLifeArea('profesion')" data-area="profesion" class="area-btn p-5 rounded-2xl tech-glass border border-white/10 hover:border-evoluta-cyan/50 text-center space-y-3 transition-all cursor-pointer">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-white/5 text-evoluta-cyan flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
+                            <span class="block font-display font-bold text-xs tracking-widest uppercase text-white">Profesión</span>
+                        </button>
+
+                        <button onclick="selectLifeArea('finanzas')" data-area="finanzas" class="area-btn p-5 rounded-2xl tech-glass border border-white/10 hover:border-evoluta-cyan/50 text-center space-y-3 transition-all cursor-pointer">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-white/5 text-evoluta-cyan flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-coins"></i>
+                            </div>
+                            <span class="block font-display font-bold text-xs tracking-widest uppercase text-white">Finanzas</span>
+                        </button>
+
+                        <button onclick="selectLifeArea('bienestar')" data-area="bienestar" class="area-btn col-span-2 sm:col-span-1 p-5 rounded-2xl tech-glass border border-white/10 hover:border-evoluta-cyan/50 text-center space-y-3 transition-all cursor-pointer">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-white/5 text-evoluta-cyan flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-seedling"></i>
+                            </div>
+                            <span class="block font-display font-bold text-xs tracking-widest uppercase text-white">Bienestar</span>
+                        </button>
+                    </div>
+
+                    <!-- Panel Dinámico de Detalle del Área -->
+                    <div id="lifeAreaDetail" class="p-6 sm:p-8 rounded-2xl tech-glass border border-evoluta-cyan/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                        <div class="space-y-1.5">
+                            <span id="areaTag" class="text-xs font-display font-bold uppercase tracking-widest text-evoluta-cyan">Área 01 · Energía Física y Vitalidad</span>
+                            <h4 id="areaTitle" class="text-xl font-display font-bold text-white">Salud: La base energética de tu sistema</h4>
+                            <p id="areaDesc" class="text-sm text-evoluta-muted max-w-3xl">
+                                Sin energía vital (IEV), cualquier plan colapsa. EVOLUTA diseña rutinas sostenibles de descanso, movimiento y nutrición integradas en tu agenda real, sin extremos insostenibles.
+                            </p>
+                        </div>
+                        <a href="#diagnostico-ibs" class="px-5 py-2.5 rounded-full bg-evoluta-cyan/15 border border-evoluta-cyan/40 text-evoluta-cyan text-xs font-display font-bold uppercase tracking-wider hover:bg-evoluta-cyan hover:text-evoluta-abyss transition-all flex-shrink-0">
+                            Evaluar esta área
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =================================================================
+             4. DIAGNÓSTICO INTERACTIVO IBS (FASE 3 & 4: DIAGNÓSTICO Y VICTORIA)
+        ================================================================== -->
+        <section id="diagnostico-ibs" class="py-24 px-4 sm:px-6 lg:px-8 relative bg-tech-grid">
+            <div class="max-w-4xl mx-auto space-y-12">
+                
+                <!-- Encabezado de Sección -->
+                <div class="text-center space-y-4 reveal">
+                    <span class="inline-block px-3.5 py-1 rounded-full bg-evoluta-cyan/10 border border-evoluta-cyan/30 text-evoluta-cyan font-display text-xs font-bold tracking-[0.2em] uppercase">
+                        Fase 03 & 04 · Primer Filtro del Ecosistema
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-display font-bold text-white">
+                        Diagnóstico Interactivo <span class="text-evoluta-cyan">IBS</span>
+                    </h2>
+                    <p class="text-evoluta-muted max-w-2xl mx-auto text-sm sm:text-base">
+                        Responde estas <strong>6 preguntas clave</strong> para calcular tu <em>Índice de Bloqueo de Sistema</em>, descubrir qué está frenando tu avance y obtener tu <strong class="text-evoluta-amber">Primera Victoria</strong> accionable.
+                    </p>
+                </div>
+
+                <!-- Contenedor del Dashboard de Diagnóstico -->
+                <div class="rounded-3xl tech-glass border border-evoluta-cyan/35 p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+                    
+                    <!-- Cabecera Técnica del Simulador -->
+                    <div id="quizHeader" class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-8 border-b border-white/10">
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 rounded-full bg-evoluta-cyan animate-pulse"></span>
+                            <span class="font-display font-bold text-xs tracking-widest uppercase text-evoluta-cyan" id="quizStepLabel">
+                                Escaneo de Sistema · Pregunta 1 de 6
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs text-evoluta-muted font-mono" id="quizPercentLabel">17%</span>
+                            <div class="w-36 sm:w-48 h-2 bg-evoluta-abyss rounded-full overflow-hidden border border-white/10">
+                                <div id="quizProgressBar" class="h-full bg-gradient-to-r from-evoluta-cobalt to-evoluta-cyan transition-all duration-500" style="width: 16.6%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Área Dinámica de Preguntas -->
+                    <div id="quizQuestionArea" class="space-y-6">
+                        <div class="space-y-2">
+                            <span id="questionDimension" class="text-xs font-display font-semibold uppercase tracking-widest text-evoluta-amber">
+                                Dimensión 1 · Bloqueo de Raíz (Identidad y Propósito)
+                            </span>
+                            <h3 id="questionText" class="text-xl sm:text-2xl font-display font-bold text-white leading-snug">
+                                ¿Con qué frecuencia sientes que trabajas en metas que realmente no nacen de lo que tú quieres o valoras?
+                            </h3>
+                        </div>
+
+                        <!-- Opciones de Respuesta (Escala de Fricción 1 a 4) -->
+                        <div id="questionOptions" class="grid grid-cols-1 gap-3.5 pt-2">
+                            <!-- Se renderiza dinámicamente con JS -->
+                        </div>
+                    </div>
+
+                    <!-- Área de Resultados Dashboard Futurista (Oculta hasta completar las 6 preguntas) -->
+                    <div id="quizResultsArea" class="hidden space-y-8">
+                        
+                        <!-- Cabecera del Resultado -->
+                        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-white/10">
+                            <div class="space-y-1">
+                                <span class="text-xs font-display font-bold uppercase tracking-widest text-evoluta-cyan">
+                                    <i class="fa-solid fa-microchip mr-1.5"></i> Informe de Diagnóstico IBS Generado
+                                </span>
+                                <h3 id="resPrimaryTitle" class="text-2xl sm:text-3xl font-display font-extrabold text-white">
+                                    Desajuste: Bloqueo de Dirección
+                                </h3>
+                            </div>
+                            <!-- Medidor Global IBS -->
+                            <div class="px-5 py-3 rounded-2xl bg-evoluta-abyss border border-evoluta-cyan/40 flex items-center gap-4">
+                                <div>
+                                    <span class="block text-[10px] font-display uppercase tracking-widest text-evoluta-muted">Índice IBS Global</span>
+                                    <span id="resGlobalScore" class="text-2xl font-display font-extrabold text-evoluta-cyan">68%</span>
+                                </div>
+                                <span id="resSeverityBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-evoluta-amber/20 text-evoluta-amber border border-evoluta-amber/40">
+                                    Fricción Alta
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico de Barras de los 6 Ejes del Sistema -->
+                        <div class="space-y-4">
+                            <h4 class="text-xs font-display font-bold uppercase tracking-widest text-evoluta-muted">
+                                Mapa de Fricción por Componente (RED + IMÁN)
+                            </h4>
+                            <div id="resBarsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <!-- Se generan 6 barras de diagnóstico en tiempo real -->
+                            </div>
+                        </div>
+
+                        <!-- Explicación Técnica & Primera Victoria -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Por qué ocurre -->
+                            <div class="p-6 rounded-2xl bg-evoluta-abyss/80 border border-white/10 space-y-3">
+                                <div class="flex items-center gap-2 text-white font-display font-bold text-sm uppercase tracking-wider">
+                                    <i class="fa-solid fa-magnifying-glass-chart text-evoluta-cyan"></i>
+                                    <span>¿Por qué te bloquea exactamente?</span>
+                                </div>
+                                <p id="resWhyText" class="text-sm text-slate-300 leading-relaxed">
+                                    <!-- Dinámico -->
+                                </p>
+                            </div>
+
+                            <!-- Primera Victoria (Fase 4 del Embudo) -->
+                            <div class="p-6 rounded-2xl bg-gradient-to-br from-evoluta-cobalt/25 to-evoluta-cyan/15 border border-evoluta-cyan/50 space-y-3 shadow-cyan-glow">
+                                <div class="flex items-center gap-2 text-evoluta-amber font-display font-bold text-sm uppercase tracking-wider">
+                                    <i class="fa-solid fa-trophy"></i>
+                                    <span>Tu Primera Victoria (Acción Inmediata RED)</span>
+                                </div>
+                                <p id="resVictoryText" class="text-sm text-white font-medium leading-relaxed">
+                                    <!-- Dinámico -->
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Acciones Post-Diagnóstico -->
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-white/10">
+                            <button onclick="restartDiagnostic()" class="w-full sm:w-auto px-6 py-3 rounded-full border border-white/20 hover:border-evoluta-cyan text-xs font-display font-bold uppercase tracking-wider text-evoluta-muted hover:text-white transition-all">
+                                <i class="fa-solid fa-rotate-left mr-2"></i> Repetir Diagnóstico
+                            </button>
+                            <a href="#ecosistema" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-evoluta-cobalt to-evoluta-cyan text-evoluta-abyss font-display font-bold text-xs sm:text-sm uppercase tracking-wider shadow-cyan-glow hover:shadow-cyan-glow-lg transition-all text-center">
+                                Desbloquear mi Sistema en RED LAB <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             5. EL SISTEMA EVOLUTA: RED + IMÁN + IRIS (FASES 5, 6 Y 7)
+        ================================================================== -->
+        <section id="el-sistema" class="py-24 px-4 sm:px-6 lg:px-8 bg-evoluta-deep/70 border-y border-white/5 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto space-y-20">
+                
+                <!-- Encabezado con Isotipo 'U' Luminosa de Conectividad (Guía de Marca) -->
+                <div class="text-center max-w-3xl mx-auto space-y-5 reveal">
+                    <!-- Isotipo U Luminosa SVG -->
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-evoluta-abyss border border-evoluta-cyan/40 flex items-center justify-center shadow-cyan-glow">
+                        <svg class="w-9 h-9" viewBox="0 0 40 40" fill="none">
+                            <path d="M10 13V22C10 27.5228 14.4772 32 20 32C25.5228 32 30 27.5228 30 22V13" stroke="url(#evolutaCyanGrad)" stroke-width="4.5" stroke-linecap="round" filter="url(#cyanGlowFilter)"/>
+                            <circle cx="10" cy="7.5" r="2.6" fill="#00D2FF" filter="url(#cyanGlowFilter)"/>
+                            <circle cx="30" cy="7.5" r="2.6" fill="#00D2FF" filter="url(#cyanGlowFilter)"/>
+                        </svg>
+                    </div>
+                    <span class="block text-xs font-display font-bold uppercase tracking-[0.25em] text-evoluta-cyan">
+                        Ingeniería de Resultados Sostenibles
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-display font-bold text-white">
+                        La Arquitectura <span class="text-gradient-cyan">RED · IMÁN · IRIS</span>
+                    </h2>
+                    <p class="text-evoluta-muted text-sm sm:text-base leading-relaxed">
+                        Un sistema cerrado de transformación personal: primero defines tu estructura, luego activas el ciclo de ejecución y finalmente mides tu progreso con datos reales.
+                    </p>
+                </div>
+
+                <!-- 3 Módulos Principales -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 reveal">
+                    
+                    <!-- MÓDULO 1: MÉTODO RED -->
+                    <div class="rounded-3xl tech-glass tech-glass-hover p-8 flex flex-col justify-between space-y-8">
+                        <div class="space-y-5">
+                            <div class="flex items-center justify-between">
+                                <span class="px-3 py-1 rounded-full bg-evoluta-cyan/15 text-evoluta-cyan font-display font-bold text-xs tracking-widest uppercase">
+                                    01 · Estructura Base
+                                </span>
+                                <i class="fa-solid fa-diagram-project text-evoluta-cyan text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-display font-extrabold text-white">Método RED</h3>
+                            <p class="text-sm text-evoluta-muted leading-relaxed">
+                                Transforma la confusión y la parálisis en claridad estratégica y un plan accionable.
+                            </p>
+                            <div class="space-y-4 pt-2">
+                                <div class="p-3.5 rounded-xl bg-evoluta-abyss/70 border border-white/5">
+                                    <span class="font-display font-bold text-evoluta-cyan text-sm">R — Raíz</span>
+                                    <p class="text-xs text-slate-300 mt-1">Autoconocimiento profundo: valores, fortalezas, creencias y patrones.</p>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-evoluta-abyss/70 border border-white/5">
+                                    <span class="font-display font-bold text-evoluta-cyan text-sm">E — Elección</span>
+                                    <p class="text-xs text-slate-300 mt-1">Decisión consciente mediante matrices de criterios y priorización.</p>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-evoluta-abyss/70 border border-white/5">
+                                    <span class="font-display font-bold text-evoluta-cyan text-sm">D — Dirección</span>
+                                    <p class="text-xs text-slate-300 mt-1">Ruta crítica, planificación por bloques y objetivos ejecutables.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-white/10 text-xs font-display font-semibold text-evoluta-amber">
+                            Confusión → Claridad y Dirección
+                        </div>
+                    </div>
+
+                    <!-- MÓDULO 2: SISTEMA IMÁN -->
+                    <div class="rounded-3xl tech-glass tech-glass-hover p-8 flex flex-col justify-between space-y-8 border-evoluta-cyan/40">
+                        <div class="space-y-5">
+                            <div class="flex items-center justify-between">
+                                <span class="px-3 py-1 rounded-full bg-evoluta-cobalt/30 text-evoluta-cyan font-display font-bold text-xs tracking-widest uppercase">
+                                    02 · Motor Continuo
+                                </span>
+                                <i class="fa-solid fa-magnet text-evoluta-cyan text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-display font-extrabold text-white">Sistema IMÁN</h3>
+                            <p class="text-sm text-evoluta-muted leading-relaxed">
+                                El bucle iterativo que convierte intenciones en hábitos sostenibles y errores en aprendizaje.
+                            </p>
+                            <div class="space-y-3 pt-2">
+                                <div class="p-3 rounded-xl bg-evoluta-abyss/70 border border-white/5 flex items-start gap-3">
+                                    <span class="font-display font-extrabold text-evoluta-cyan">I</span>
+                                    <div>
+                                        <span class="font-display font-bold text-white text-xs uppercase">Imaginar</span>
+                                        <p class="text-xs text-slate-300">Diseñar con propósito el escenario futuro deseado.</p>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-xl bg-evoluta-abyss/70 border border-white/5 flex items-start gap-3">
+                                    <span class="font-display font-extrabold text-evoluta-cyan">M</span>
+                                    <div>
+                                        <span class="font-display font-bold text-white text-xs uppercase">Movilizar</span>
+                                        <p class="text-xs text-slate-300">Iniciar la ejecución inmediata venciendo la fricción.</p>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-xl bg-evoluta-abyss/70 border border-white/5 flex items-start gap-3">
+                                    <span class="font-display font-extrabold text-evoluta-cyan">A</span>
+                                    <div>
+                                        <span class="font-display font-bold text-white text-xs uppercase">Aprendizaje</span>
+                                        <p class="text-xs text-slate-300">Contrastar resultados reales frente a los esperados.</p>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-xl bg-evoluta-abyss/70 border border-white/5 flex items-start gap-3">
+                                    <span class="font-display font-extrabold text-evoluta-cyan">N</span>
+                                    <div>
+                                        <span class="font-display font-bold text-white text-xs uppercase">Neuroajustar</span>
+                                        <p class="text-xs text-slate-300">Recalibrar estrategias y creencias sin abandonar.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-white/10 text-xs font-display font-semibold text-evoluta-amber">
+                            Estancamiento → Evolución Continua
+                        </div>
+                    </div>
+
+                    <!-- MÓDULO 3: SISTEMA IRIS (Dashboard Simulado en Vivo) -->
+                    <div class="rounded-3xl tech-glass tech-glass-hover p-8 flex flex-col justify-between space-y-6">
+                        <div class="space-y-5">
+                            <div class="flex items-center justify-between">
+                                <span class="px-3 py-1 rounded-full bg-evoluta-amber/15 text-evoluta-amber font-display font-bold text-xs tracking-widest uppercase">
+                                    03 · Medición Real
+                                </span>
+                                <i class="fa-solid fa-chart-line text-evoluta-cyan text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-display font-extrabold text-white">Sistema IRIS</h3>
+                            <p class="text-sm text-evoluta-muted leading-relaxed">
+                                La evolución deja de ser subjetiva y se vuelve observable mediante indicadores precisos:
+                            </p>
+
+                            <!-- Mini Dashboard Simulado IRIS -->
+                            <div class="p-4 rounded-2xl bg-evoluta-abyss border border-evoluta-cyan/30 space-y-4">
+                                <div class="flex items-center justify-between text-[11px] font-mono text-evoluta-cyan">
+                                    <span>IRIS TELEMETRY v2.6</span>
+                                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> ACTIVO</span>
+                                </div>
+                                
+                                <!-- Métricas IBS, IEV, PB, IRB -->
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="p-3 rounded-xl bg-evoluta-slate/60 border border-white/5">
+                                        <span class="text-[10px] font-display uppercase text-evoluta-muted block">IBS · Bloqueo</span>
+                                        <span class="text-lg font-display font-extrabold text-emerald-400">-42%</span>
+                                        <span class="text-[10px] text-slate-400 block">Fricción reducida</span>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-evoluta-slate/60 border border-white/5">
+                                        <span class="text-[10px] font-display uppercase text-evoluta-muted block">IEV · Energía</span>
+                                        <span class="text-lg font-display font-extrabold text-evoluta-cyan">88/100</span>
+                                        <span class="text-[10px] text-slate-400 block">Vitalidad óptima</span>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-evoluta-slate/60 border border-white/5">
+                                        <span class="text-[10px] font-display uppercase text-evoluta-muted block">PB · Progreso</span>
+                                        <span class="text-lg font-display font-extrabold text-white">+3.4x</span>
+                                        <span class="text-[10px] text-slate-400 block">Velocidad de logro</span>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-evoluta-slate/60 border border-white/5">
+                                        <span class="text-[10px] font-display uppercase text-evoluta-muted block">IRB · Resiliencia</span>
+                                        <span class="text-lg font-display font-extrabold text-evoluta-amber">92%</span>
+                                        <span class="text-[10px] text-slate-400 block">Neuroajuste activo</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-white/10 text-xs font-display font-semibold text-evoluta-amber">
+                            Percepción → Datos Observables
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Barra de Pilares de Valor de las Láminas Creativas -->
+                <div class="p-6 sm:p-8 rounded-3xl tech-glass border border-white/10 reveal">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
+                        <div class="space-y-1.5">
+                            <i class="fa-solid fa-crosshairs text-evoluta-cyan text-lg"></i>
+                            <h4 class="font-display font-bold text-xs uppercase tracking-wider text-white">Claridad</h4>
+                            <p class="text-xs text-evoluta-muted">Específica y accionable</p>
+                        </div>
+                        <div class="space-y-1.5">
+                            <i class="fa-solid fa-arrow-trend-up text-evoluta-cyan text-lg"></i>
+                            <h4 class="font-display font-bold text-xs uppercase tracking-wider text-white">Crecimiento</h4>
+                            <p class="text-xs text-evoluta-muted">Vida y progreso real</p>
+                        </div>
+                        <div class="space-y-1.5">
+                            <i class="fa-solid fa-bolt text-evoluta-cyan text-lg"></i>
+                            <h4 class="font-display font-bold text-xs uppercase tracking-wider text-white">Acción</h4>
+                            <p class="text-xs text-evoluta-muted">Energía y activación</p>
+                        </div>
+                        <div class="space-y-1.5">
+                            <i class="fa-solid fa-shield-halved text-evoluta-cyan text-lg"></i>
+                            <h4 class="font-display font-bold text-xs uppercase tracking-wider text-white">Profesionalidad</h4>
+                            <p class="text-xs text-evoluta-muted">Ciencia y estabilidad</p>
+                        </div>
+                        <div class="col-span-2 sm:col-span-1 space-y-1.5">
+                            <i class="fa-solid fa-spa text-evoluta-cyan text-lg"></i>
+                            <h4 class="font-display font-bold text-xs uppercase tracking-wider text-white">Equilibrio</h4>
+                            <p class="text-xs text-evoluta-muted">Naturalidad sostenible</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =================================================================
+             6. ECOSISTEMA Y HOJA DE RUTA (FASES 5, 8 Y 9)
+        ================================================================== -->
+        <section id="ecosistema" class="py-24 px-4 sm:px-6 lg:px-8 relative bg-tech-grid">
+            <div class="max-w-7xl mx-auto space-y-16">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-4 reveal">
+                    <span class="text-xs font-display font-bold uppercase tracking-[0.25em] text-evoluta-amber">
+                        Hoja de Ruta de Implementación
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-display font-bold text-white">
+                        El Ecosistema <span class="text-evoluta-cyan">EVOLUTA</span>
+                    </h2>
+                    <p class="text-evoluta-muted text-sm sm:text-base">
+                        Desde el autoaprendizaje guiado hasta la inteligencia artificial aplicada a tu evolución diaria. Escala a tu propio ritmo.
+                    </p>
+                </div>
+
+                <!-- Progresión de 5 Niveles del Ecosistema -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 reveal">
+                    
+                    <!-- Nivel 1: Ebooks y Workbooks -->
+                    <div class="rounded-2xl tech-glass tech-glass-hover p-6 flex flex-col justify-between space-y-6">
+                        <div class="space-y-3">
+                            <span class="text-xs font-mono text-evoluta-cyan">01 / EDITORIAL</span>
+                            <h3 class="text-lg font-display font-bold text-white">Ebooks & Workbooks</h3>
+                            <p class="text-xs text-evoluta-muted leading-relaxed">
+                                Autoaprendizaje estructurado con el Libro Maestro de Ruta y cuadernos de ejercicios RED + IMÁN.
+                            </p>
+                        </div>
+                        <button onclick="openModal('Ebooks & Workbooks EVOLUTA', 'Accede a las guías prácticas paso a paso para implementar el Método RED de forma autónoma.')" class="w-full py-2.5 rounded-xl border border-white/15 hover:border-evoluta-cyan text-xs font-display font-bold uppercase tracking-wider text-white transition-all">
+                            Explorar Guías
+                        </button>
+                    </div>
+
+                    <!-- Nivel 2: RED LAB (Destacado) -->
+                    <div class="rounded-2xl tech-glass tech-glass-hover p-6 flex flex-col justify-between space-y-6 border-evoluta-cyan shadow-cyan-glow relative">
+                        <span class="absolute -top-3 right-4 px-3 py-0.5 rounded-full bg-evoluta-cyan text-evoluta-abyss font-display font-extrabold text-[10px] uppercase tracking-wider">
+                            Acceso Directo
+                        </span>
+                        <div class="space-y-3">
+                            <span class="text-xs font-mono text-evoluta-cyan">02 / LABORATORIO</span>
+                            <h3 class="text-lg font-display font-bold text-white">RED LAB</h3>
+                            <p class="text-xs text-slate-200 leading-relaxed">
+                                Espacio de experimentación y validación práctica donde diseñas, pruebas y ajustas tu sistema real.
+                            </p>
+                        </div>
+                        <button onclick="openModal('RED LAB · Laboratorio de Sistemas', 'Únete a la próxima cohorte experimental para construir tu sistema personal con validación semanal.')" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-evoluta-cobalt to-evoluta-cyan text-evoluta-abyss text-xs font-display font-bold uppercase tracking-wider shadow-cyan-glow transition-all">
+                            Entrar a RED LAB
+                        </button>
+                    </div>
+
+                    <!-- Nivel 3: Mentoría Individual y Grupal -->
+                    <div class="rounded-2xl tech-glass tech-glass-hover p-6 flex flex-col justify-between space-y-6">
+                        <div class="space-y-3">
+                            <span class="text-xs font-mono text-evoluta-cyan">03 / ACOMPAÑAMIENTO</span>
+                            <h3 class="text-lg font-display font-bold text-white">Mentoría 1:1 y Grupal</h3>
+                            <p class="text-xs text-evoluta-muted leading-relaxed">
+                                Diagnóstico profundo personalizado y aprendizaje colaborativo para desbloquear cuellos de botella complejos.
+                            </p>
+                        </div>
+                        <button onclick="openModal('Mentoría Estratégica EVOLUTA', 'Solicita una sesión de arquitectura personal o únete a los grupos de acompañamiento continuo.')" class="w-full py-2.5 rounded-xl border border-white/15 hover:border-evoluta-cyan text-xs font-display font-bold uppercase tracking-wider text-white transition-all">
+                            Solicitar Plaza
+                        </button>
+                    </div>
+
+                    <!-- Nivel 4: Comunidad EVOLUTA -->
+                    <div class="rounded-2xl tech-glass tech-glass-hover p-6 flex flex-col justify-between space-y-6">
+                        <div class="space-y-3">
+                            <span class="text-xs font-mono text-evoluta-cyan">04 / IDENTIDAD</span>
+                            <h3 class="text-lg font-display font-bold text-white">Comunidad EVOLUTA</h3>
+                            <p class="text-xs text-evoluta-muted leading-relaxed">
+                                No eres un cliente, eres un miembro activo. Intercambio de experiencias, retos sistémicos y mejora compartida.
+                            </p>
+                        </div>
+                        <button onclick="openModal('Comunidad EVOLUTA', 'Conecta con personas comprometidas con su evolución consciente y comparte métricas de progreso.')" class="w-full py-2.5 rounded-xl border border-white/15 hover:border-evoluta-cyan text-xs font-display font-bold uppercase tracking-wider text-white transition-all">
+                            Ser Miembro
+                        </button>
+                    </div>
+
+                    <!-- Nivel 5: App EVOLUTA & IRIS AI -->
+                    <div class="rounded-2xl tech-glass tech-glass-hover p-6 flex flex-col justify-between space-y-6 border-evoluta-amber/30">
+                        <div class="space-y-3">
+                            <span class="text-xs font-mono text-evoluta-amber">05 / PLATAFORMA TECH</span>
+                            <h3 class="text-lg font-display font-bold text-white">App EVOLUTA & IRIS AI</h3>
+                            <p class="text-xs text-evoluta-muted leading-relaxed">
+                                Dashboards en tiempo real, seguimiento automatizado de métricas IBS/IEV e inteligencia artificial de apoyo.
+                            </p>
+                        </div>
+                        <button onclick="openModal('Lista Prioritaria · App EVOLUTA & IRIS AI', 'Regístrate para obtener acceso anticipado a la plataforma digital y al asistente de IA sistémica.')" class="w-full py-2.5 rounded-xl bg-evoluta-amber/15 border border-evoluta-amber/40 hover:bg-evoluta-amber hover:text-evoluta-abyss text-xs font-display font-bold uppercase tracking-wider text-evoluta-amber transition-all">
+                            Acceso Anticipado
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             7. MANIFIESTO EVOLUTA Y CIERRE DE CONVERSIÓN (FASE 8)
+        ================================================================== -->
+        <section id="manifiesto" class="py-24 px-4 sm:px-6 lg:px-8 bg-evoluta-deep border-t border-evoluta-cyan/20 relative overflow-hidden">
+            <div class="max-w-5xl mx-auto space-y-16 relative z-10">
+                
+                <!-- Cabecera Editorial del Manifiesto -->
+                <div class="text-center space-y-4 reveal">
+                    <span class="text-xs font-display font-bold uppercase tracking-[0.25em] text-evoluta-cyan">
+                        Manifiesto EVOLUTA
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white">
+                        La comunidad de quienes deciden <span class="text-gradient-cyan">evolucionar conscientemente</span>
+                    </h2>
+                    <p class="text-evoluta-muted max-w-2xl mx-auto text-base sm:text-lg font-light">
+                        "No competimos con otras personas. Competimos con la versión de nosotros mismos que existía ayer."
+                    </p>
+                </div>
+
+                <!-- Principios del Manifiesto en Diseño Editorial -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">
+                    <div class="p-7 rounded-2xl tech-glass border border-white/10 space-y-2.5">
+                        <span class="text-xs font-mono text-evoluta-cyan">PRINCIPIO 01</span>
+                        <h3 class="text-lg font-display font-bold text-white">Todo resultado es consecuencia de un sistema</h3>
+                        <p class="text-sm text-evoluta-muted leading-relaxed">
+                            Los éxitos y bloqueos no ocurren por azar. Detrás de cada resultado hay una estructura visible o invisible. Cuando cambia el sistema, cambian los resultados.
+                        </p>
+                    </div>
+
+                    <div class="p-7 rounded-2xl tech-glass border border-white/10 space-y-2.5">
+                        <span class="text-xs font-mono text-evoluta-cyan">PRINCIPIO 02</span>
+                        <h3 class="text-lg font-display font-bold text-white">La claridad precede a la acción</h3>
+                        <p class="text-sm text-evoluta-muted leading-relaxed">
+                            Es difícil avanzar cuando no sabemos quiénes somos o hacia dónde vamos. La claridad elimina la fricción antes de dar el primer paso.
+                        </p>
+                    </div>
+
+                    <div class="p-7 rounded-2xl tech-glass border border-white/10 space-y-2.5">
+                        <span class="text-xs font-mono text-evoluta-cyan">PRINCIPIO 03</span>
+                        <h3 class="text-lg font-display font-bold text-white">Toda experiencia contiene aprendizaje</h3>
+                        <p class="text-sm text-evoluta-muted leading-relaxed">
+                            Los errores no son el final del camino, son datos. Observamos, reflexionamos y neuroajustamos nuestra estrategia sin culpa.
+                        </p>
+                    </div>
+
+                    <div class="p-7 rounded-2xl tech-glass border border-white/10 space-y-2.5">
+                        <span class="text-xs font-mono text-evoluta-amber">PRINCIPIO 04</span>
+                        <h3 class="text-lg font-display font-bold text-white">Tu mejor versión no es un destino, es un sistema</h3>
+                        <p class="text-sm text-evoluta-muted leading-relaxed">
+                            Evolucionar no es un acontecimiento aislado. Es una práctica diaria, una decisión consciente y un diseño intencional.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Banner de Cierre Cinematográfico (Inspirado en la Escena 8 de las imágenes) -->
+                <div class="rounded-3xl p-8 sm:p-14 text-center space-y-8 relative overflow-hidden border border-evoluta-cyan/40 shadow-cyan-glow reveal" style="background: radial-gradient(circle at 50% 20%, rgba(0, 210, 255, 0.22) 0%, rgba(245, 166, 35, 0.12) 45%, rgba(6, 13, 23, 0.96) 90%);">
+                    
+                    <!-- Isotipo Central Luminoso -->
+                    <div class="flex flex-col items-center space-y-3">
+                        <svg class="w-16 h-16" viewBox="0 0 64 64" fill="none">
+                            <path d="M44 43C39.5 49.5 31.5 52.5 23.5 50.5C14.5 48.2 9.5 39 11.8 30C13.5 23.2 19 18.2 25.5 16.8" stroke="url(#evolutaSilverGrad)" stroke-width="5.5" stroke-linecap="round"/>
+                            <path d="M13 35.5C21 35.5 33 32.5 46 17" stroke="url(#evolutaCyanGrad)" stroke-width="6" stroke-linecap="round" filter="url(#cyanGlowFilter)"/>
+                            <path d="M36 15.5H48.5V28" stroke="url(#evolutaCyanGrad)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#cyanGlowFilter)"/>
+                            <circle cx="31" cy="14" r="4" fill="#FFFFFF" filter="url(#cyanGlowFilter)"/>
+                        </svg>
+                        <div class="font-display font-extrabold text-2xl sm:text-3xl tracking-[0.28em] text-white">
+                            EVOLUT<span class="text-evoluta-cyan">A</span>
+                        </div>
+                        <span class="text-xs font-display tracking-[0.25em] text-evoluta-cyan uppercase">
+                            Evolución desde tu sistema
+                        </span>
+                    </div>
+
+                    <div class="space-y-3 max-w-2xl mx-auto">
+                        <h3 class="text-2xl sm:text-4xl font-display font-bold text-white">
+                            Tu siguiente nivel empieza ahora.
+                        </h3>
+                        <p class="text-sm sm:text-base text-slate-300">
+                            No empieza cuando tengas más ganas. Empieza cuando decides dar el paso y diseñar tu sistema.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="#diagnostico-ibs" class="w-full sm:w-auto px-9 py-4 rounded-full bg-gradient-to-r from-evoluta-cobalt to-evoluta-cyan text-evoluta-abyss font-display font-extrabold text-sm uppercase tracking-wider shadow-cyan-glow hover:shadow-cyan-glow-lg transition-all transform hover:-translate-y-0.5">
+                            Descubre el Programa & Diagnóstico
+                        </a>
+                        <button onclick="openModal('Únete a la Comunidad EVOLUTA', 'Déjanos tu correo para recibir el Manifiesto completo en PDF y acceso a nuestra comunidad privada.')" class="w-full sm:w-auto px-8 py-4 rounded-full tech-glass border border-white/25 hover:border-evoluta-cyan text-white font-display font-bold text-sm uppercase tracking-wider transition-all">
+                            Unirme a la Comunidad
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- =================================================================
+         8. FOOTER (LEMA: CREA / PLANIFICA / ACTÚA / EVOLUCIONA)
+    ================================================================== -->
+    <footer class="bg-evoluta-abyss border-t border-white/10 pt-14 pb-10 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto space-y-10">
+            
+            <!-- Lema Central -->
+            <div class="text-center pb-8 border-b border-white/10">
+                <p class="font-display font-bold text-xs sm:text-sm tracking-[0.35em] text-evoluta-cyan uppercase">
+                    CREA <span class="text-white/30 mx-2">/</span> PLANIFICA <span class="text-white/30 mx-2">/</span> ACTÚA <span class="text-white/30 mx-2">/</span> EVOLUCIONA
+                </p>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Logo Footer -->
+                <div class="flex items-center gap-3">
+                    <svg class="w-8 h-8" viewBox="0 0 64 64" fill="none">
+                        <path d="M44 43C39.5 49.5 31.5 52.5 23.5 50.5C14.5 48.2 9.5 39 11.8 30C13.5 23.2 19 18.2 25.5 16.8" stroke="url(#evolutaSilverGrad)" stroke-width="5.5" stroke-linecap="round"/>
+                        <path d="M13 35.5C21 35.5 33 32.5 46 17" stroke="url(#evolutaCyanGrad)" stroke-width="6" stroke-linecap="round"/>
+                        <path d="M36 15.5H48.5V28" stroke="url(#evolutaCyanGrad)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="31" cy="14" r="4" fill="#FFFFFF"/>
+                    </svg>
+                    <div>
+                        <span class="font-display font-bold tracking-[0.22em] text-white text-base block">EVOLUT<span class="text-evoluta-cyan">A</span></span>
+                        <span class="text-[10px] text-evoluta-muted uppercase tracking-widest">Diseña tu evolución</span>
+                    </div>
+                </div>
+
+                <!-- Enlaces Rápidos -->
+                <div class="flex flex-wrap justify-center gap-6 text-xs text-evoluta-muted">
+                    <a href="#el-bloqueo" class="hover:text-evoluta-cyan transition-colors">El Bloqueo</a>
+                    <a href="#diagnostico-ibs" class="hover:text-evoluta-cyan transition-colors">Diagnóstico IBS</a>
+                    <a href="#el-sistema" class="hover:text-evoluta-cyan transition-colors">Método RED · IMÁN · IRIS</a>
+                    <a href="#ecosistema" class="hover:text-evoluta-cyan transition-colors">Ecosistema</a>
+                    <a href="#manifiesto" class="hover:text-evoluta-cyan transition-colors">Manifiesto</a>
+                </div>
+
+                <!-- Redes Sociales -->
+                <div class="flex items-center gap-3">
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full tech-glass border border-white/15 flex items-center justify-center text-evoluta-cyan hover:bg-evoluta-cyan hover:text-evoluta-abyss transition-all" aria-label="Instagram EVOLUTA">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full tech-glass border border-white/15 flex items-center justify-center text-evoluta-cyan hover:bg-evoluta-cyan hover:text-evoluta-abyss transition-all" aria-label="YouTube EVOLUTA">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="text-center text-xs text-slate-500 pt-4">
+                &copy; 2026 EVOLUTA · Sistema de Crecimiento Personal. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- =================================================================
+         MODAL INTERACTIVO DE CONVERSIÓN (SIN ALERTAS NATIVAS)
+    ================================================================== -->
+    <div id="actionModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-evoluta-abyss/85 backdrop-blur-md">
+        <div class="max-w-md w-full rounded-3xl tech-glass border border-evoluta-cyan/50 p-6 sm:p-8 shadow-cyan-glow space-y-6 relative">
+            <button onclick="closeModal()" class="absolute top-5 right-5 text-evoluta-muted hover:text-white text-xl" aria-label="Cerrar ventana">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="space-y-2">
+                <span class="text-xs font-display font-bold uppercase tracking-widest text-evoluta-cyan">Ecosistema EVOLUTA</span>
+                <h3 id="modalTitle" class="text-2xl font-display font-bold text-white">Únete a EVOLUTA</h3>
+                <p id="modalDesc" class="text-sm text-evoluta-muted leading-relaxed">
+                    Ingresa tu correo para recibir acceso directo y tu guía inicial del sistema.
+                </p>
+            </div>
+
+            <form id="modalForm" onsubmit="submitModalForm(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-display uppercase tracking-wider text-evoluta-muted mb-1.5">Tu Nombre</label>
+                    <input type="text" required placeholder="Ej. Alex Rivera" class="w-full px-4 py-3 rounded-xl bg-evoluta-abyss border border-white/15 text-white text-sm focus:outline-none focus:border-evoluta-cyan">
+                </div>
+                <div>
+                    <label class="block text-xs font-display uppercase tracking-wider text-evoluta-muted mb-1.5">Correo Electrónico</label>
+                    <input type="email" required placeholder="tu@correo.com" class="w-full px-4 py-3 rounded-xl bg-evoluta-abyss border border-white/15 text-white text-sm focus:outline-none focus:border-evoluta-cyan">
+                </div>
+                <button type="submit" class="w-full py-3.5 rounded-full bg-gradient-to-r from-evoluta-cobalt to-evoluta-cyan text-evoluta-abyss font-display font-extrabold text-xs uppercase tracking-wider shadow-cyan-glow hover:shadow-cyan-glow-lg transition-all">
+                    Confirmar Acceso
+                </button>
+            </form>
+
+            <div id="modalConfirmation" class="hidden p-4 rounded-2xl bg-emerald-500/15 border border-emerald-400/40 text-center space-y-2">
+                <i class="fa-solid fa-circle-check text-emerald-400 text-2xl"></i>
+                <p class="text-sm font-display font-bold text-white">¡Registro Completado!</p>
+                <p class="text-xs text-slate-300">Hemos enviado los detalles de acceso a tu bandeja de entrada.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================================
+         LÓGICA JAVASCRIPT (DIAGNÓSTICO IBS 6 PREGUNTAS + INTERACCIONES)
+    ================================================================== -->
+    <script>
+        // 1. Menú Móvil
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuIcon = document.getElementById('mobileMenuIcon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenuIcon.className = mobileMenu.classList.contains('hidden') ? 'fa-solid fa-bars' : 'fa-solid fa-xmark';
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuIcon.className = 'fa-solid fa-bars';
+            });
+        });
+
+        // 2. Selector Interactivo de las 5 Áreas de Vida
+        const lifeAreasData = {
+            salud: {
+                tag: 'Área 01 · Energía Física y Vitalidad',
+                title: 'Salud: La base energética de tu sistema',
+                desc: 'Sin energía vital (IEV), cualquier plan colapsa. EVOLUTA diseña rutinas sostenibles de descanso, movimiento y nutrición integradas en tu agenda real, sin extremos insostenibles.'
+            },
+            mente: {
+                tag: 'Área 02 · Claridad Cognitiva y Enfoque',
+                title: 'Mente: Gestión emocional y neuroajuste',
+                desc: 'Elimina el ruido mental y la rumiación. Aplicamos herramientas de autoconocimiento (Raíz) para transformar la autocrítica en aprendizaje objetivo.'
+            },
+            profesion: {
+                tag: 'Área 03 · Impacto y Desarrollo Carrera',
+                title: 'Profesión: Ejecución estratégica sin dispersión',
+                desc: 'Convierte proyectos ambiciosos en rutas críticas claras (Dirección). Prioriza lo que genera alto impacto y elimina tareas que solo producen ocupación.'
+            },
+            finanzas: {
+                tag: 'Área 04 · Libertad y Estructura Económica',
+                title: 'Finanzas: Decisiones conscientes con datos',
+                desc: 'Aplica pensamiento de sistemas a tus recursos: métricas claras, presupuestos intencionales y toma de decisiones financieras libres de impulsividad.'
+            },
+            bienestar: {
+                tag: 'Área 05 · Propósito y Armonía Vital',
+                title: 'Bienestar: Coherencia entre quién eres y lo que haces',
+                desc: 'El verdadero progreso ocurre cuando tus acciones diarias honran tus valores fundamentales y tus relaciones personales.'
+            }
+        };
+
+        function selectLifeArea(areaKey) {
+            const data = lifeAreasData[areaKey];
+            document.getElementById('areaTag').textContent = data.tag;
+            document.getElementById('areaTitle').textContent = data.title;
+            document.getElementById('areaDesc').textContent = data.desc;
+
+            document.querySelectorAll('.area-btn').forEach(btn => {
+                if (btn.dataset.area === areaKey) {
+                    btn.classList.add('border-evoluta-cyan', 'shadow-cyan-glow');
+                    btn.classList.remove('border-white/10');
+                } else {
+                    btn.classList.remove('border-evoluta-cyan', 'shadow-cyan-glow');
+                    btn.classList.add('border-white/10');
+                }
+            });
+        }
+
+        // 3. Diagnóstico Interactivo IBS (6 Preguntas del Modelo RED + IMÁN)
+        const diagnosticQuestions = [
+            {
+                key: 'raiz',
+                name: 'Raíz (Identidad)',
+                dimension: 'Dimensión 1 · Bloqueo de Raíz (Identidad y Claridad)',
+                text: '¿Sientes dispersión o dudas sobre si tus objetivos actuales reflejan realmente quién eres y lo que valoras?',
+                why: 'Tu bloqueo nace en la Raíz: intentas construir disciplina sobre objetivos que no están alineados con tu identidad ni tus valores reales.',
+                victory: 'Escribe hoy tus 3 valores innegociables y audita tu meta principal: si no conecta con al menos dos de ellos, rediseña el objetivo antes de seguir.'
+            },
+            {
+                key: 'eleccion',
+                name: 'Elección (Decisión)',
+                dimension: 'Dimensión 2 · Bloqueo de Elección (Criterio y Priorización)',
+                text: '¿Te quedas atrapado analizando múltiples opciones y postergas tomar una decisión firme por miedo a equivocarte?',
+                why: 'Sufres parálisis por análisis en el eje de Elección: mantener demasiadas puertas abiertas consume toda tu energía cognitiva antes de actuar.',
+                victory: 'Aplica la regla de descarte RED: elige una única prioridad para los próximos 14 días y pausa deliberadamente todas las demás alternativas.'
+            },
+            {
+                key: 'direccion',
+                name: 'Dirección (Plan)',
+                dimension: 'Dimensión 3 · Bloqueo de Dirección (Estructura y Ruta)',
+                text: '¿Sabes exactamente lo que quieres lograr, pero te abrumas al no tener un plan paso a paso claro para ejecutarlo?',
+                why: 'Tu fricción está en la Dirección: tienes visión pero careces de una ruta crítica dividida en bloques ejecutables.',
+                victory: 'Desglosa tu objetivo en 3 hitos semanales y define únicamente la primera acción física de 15 minutos para mañana a primera hora.'
+            },
+            {
+                key: 'movilizacion',
+                name: 'Movilización (Inicio)',
+                dimension: 'Dimensión 4 · Bloqueo de Movilización (Fricción de Arranque)',
+                text: '¿Tienes claro qué hacer y cómo hacerlo, pero pospones el inicio esperando "sentirte motivado" o en el momento perfecto?',
+                why: 'Experimentas un bloqueo de Movilización: tu sistema depende del estado emocional en lugar de un disparador de inicio de baja fricción.',
+                victory: 'Usa el Protocolo de Ignición de 5 Minutos: comprométete a ejecutar la tarea durante solo 5 minutos sin exigirte terminarla.'
+            },
+            {
+                key: 'analisis',
+                name: 'Aprendizaje (Datos)',
+                dimension: 'Dimensión 5 · Bloqueo de Análisis (Evaluación Objetiva)',
+                text: '¿Sueles repetir los mismos tropiezos semana tras semana porque no te detienes a medir qué funcionó y qué falló?',
+                why: 'Falta retroalimentación en el eje de Aprendizaje: avanzas en piloto automático sin contrastar resultados esperados frente a reales.',
+                victory: 'Agenda 10 minutos este domingo para responder dos preguntas IRIS: ¿Qué generó avance real esta semana? ¿Qué generó fricción?'
+            },
+            {
+                key: 'neuroajuste',
+                name: 'Neuroajuste (Adaptación)',
+                dimension: 'Dimensión 6 · Bloqueo de Neuroajuste (Resiliencia)',
+                text: 'Cuando un plan falla o cometes un error, ¿lo interpretas como un fracaso personal y abandonas todo el sistema?',
+                why: 'Tu cuello de botella es el Neuroajuste: confundes un fallo técnico del proceso con una incapacidad personal.',
+                victory: 'Reformula tu último tropiezo como un dato de calibración: cambia una sola variable de tu rutina y vuelve a probar durante 7 días.'
+            }
+        ];
+
+        const answerChoices = [
+            { label: 'Rara vez me ocurre', score: 15 },
+            { label: 'A veces me pasa', score: 45 },
+            { label: 'Me ocurre con frecuencia', score: 75 },
+            { label: 'Es mi principal freno ahora mismo', score: 95 }
+        ];
+
+        let currentQIndex = 0;
+        let userScores = {};
+
+        function renderQuestion() {
+            const q = diagnosticQuestions[currentQIndex];
+            const progressPercent = Math.round(((currentQIndex + 1) / diagnosticQuestions.length) * 100);
+
+            document.getElementById('quizStepLabel').textContent = `Escaneo de Sistema · Pregunta ${currentQIndex + 1} de ${diagnosticQuestions.length}`;
+            document.getElementById('quizPercentLabel').textContent = `${progressPercent}%`;
+            document.getElementById('quizProgressBar').style.width = `${progressPercent}%`;
+
+            document.getElementById('questionDimension').textContent = q.dimension;
+            document.getElementById('questionText').textContent = q.text;
+
+            const optionsContainer = document.getElementById('questionOptions');
+            optionsContainer.innerHTML = '';
+
+            answerChoices.forEach((choice, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left p-4 sm:p-5 rounded-2xl bg-evoluta-abyss/80 border border-white/10 hover:border-evoluta-cyan hover:bg-evoluta-slate/80 transition-all flex items-center justify-between gap-4 group cursor-pointer';
+                btn.innerHTML = `
+                    <div class="flex items-center gap-3.5">
+                        <span class="w-7 h-7 rounded-full border border-evoluta-cyan/40 group-hover:bg-evoluta-cyan group-hover:text-evoluta-abyss font-display font-bold text-xs flex items-center justify-center text-evoluta-cyan transition-colors">
+                            ${idx + 1}
+                        </span>
+                        <span class="text-sm sm:text-base text-slate-200 group-hover:text-white font-medium">${choice.label}</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-evoluta-cyan opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                `;
+                btn.onclick = () => handleAnswer(q.key, choice.score);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleAnswer(key, score) {
+            userScores[key] = score;
+            if (currentQIndex < diagnosticQuestions.length - 1) {
+                currentQIndex++;
+                renderQuestion();
+            } else {
+                showDiagnosticResults();
+            }
+        }
+
+        function showDiagnosticResults() {
+            document.getElementById('quizHeader').classList.add('hidden');
+            document.getElementById('quizQuestionArea').classList.add('hidden');
+            const resultsArea = document.getElementById('quizResultsArea');
+            resultsArea.classList.remove('hidden');
+
+            // Calcular puntuación global IBS y detectar cuello de botella principal
+            let totalScore = 0;
+            let highestQ = diagnosticQuestions[0];
+            let maxVal = -1;
+
+            diagnosticQuestions.forEach(q => {
+                const val = userScores[q.key] || 0;
+                totalScore += val;
+                if (val > maxVal) {
+                    maxVal = val;
+                    highestQ = q;
+                }
+            });
+
+            const avgScore = Math.round(totalScore / diagnosticQuestions.length);
+
+            document.getElementById('resPrimaryTitle').textContent = `Cuello de Botella: Bloqueo de ${highestQ.name.split(' ')[0]}`;
+            document.getElementById('resGlobalScore').textContent = `${avgScore}%`;
+            document.getElementById('resWhyText').textContent = highestQ.why;
+            document.getElementById('resVictoryText').textContent = highestQ.victory;
+
+            const badge = document.getElementById('resSeverityBadge');
+            if (avgScore >= 70) {
+                badge.textContent = 'Fricción Crítica';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-evoluta-amber/20 text-evoluta-amber border border-evoluta-amber/40';
+            } else if (avgScore >= 40) {
+                badge.textContent = 'Fricción Moderada';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-evoluta-cyan/20 text-evoluta-cyan border border-evoluta-cyan/40';
+            } else {
+                badge.textContent = 'Sistema Optimizable';
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-400/40';
+            }
+
+            // Renderizar las 6 barras del dashboard
+            const barsContainer = document.getElementById('resBarsContainer');
+            barsContainer.innerHTML = '';
+
+            diagnosticQuestions.forEach(q => {
+                const val = userScores[q.key] || 0;
+                const isPrimary = q.key === highestQ.key;
+                const barColor = isPrimary ? 'bg-evoluta-amber' : 'bg-gradient-to-r from-evoluta-cobalt to-evoluta-cyan';
+                const textColor = isPrimary ? 'text-evoluta-amber font-bold' : 'text-slate-300';
+
+                const barHTML = `
+                    <div class="p-3.5 rounded-xl bg-evoluta-abyss/80 border ${isPrimary ? 'border-evoluta-amber/50' : 'border-white/5'} space-y-2">
+                        <div class="flex justify-between text-xs">
+                            <span class="${textColor}">${q.name} ${isPrimary ? '★' : ''}</span>
+                            <span class="font-mono text-white">${val}%</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full ${barColor} rounded-full transition-all duration-700" style="width: ${val}%;"></div>
+                        </div>
+                    </div>
+                `;
+                barsContainer.insertAdjacentHTML('beforeend', barHTML);
+            });
+        }
+
+        function restartDiagnostic() {
+            currentQIndex = 0;
+            userScores = {};
+            document.getElementById('quizResultsArea').classList.add('hidden');
+            document.getElementById('quizHeader').classList.remove('hidden');
+            document.getElementById('quizQuestionArea').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        // Inicializar primera pregunta al cargar
+        renderQuestion();
+
+        // 4. Modal de Conversión
+        const actionModal = document.getElementById('actionModal');
+        function openModal(title, desc) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDesc').textContent = desc;
+            document.getElementById('modalForm').classList.remove('hidden');
+            document.getElementById('modalConfirmation').classList.add('hidden');
+            actionModal.classList.remove('hidden');
+            actionModal.classList.add('flex');
+        }
+
+        function closeModal() {
+            actionModal.classList.add('hidden');
+            actionModal.classList.remove('flex');
+        }
+
+        function submitModalForm(e) {
+            e.preventDefault();
+            document.getElementById('modalForm').classList.add('hidden');
+            document.getElementById('modalConfirmation').classList.remove('hidden');
+            e.target.reset();
+        }
+
+        // 5. Animaciones suaves al hacer scroll (Intersection Observer)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
